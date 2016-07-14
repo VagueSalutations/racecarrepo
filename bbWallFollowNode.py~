@@ -43,7 +43,6 @@ def callBack(msg):
 
 # MAIN()      
 
-rospy.init_node(NODE_NAME)
 scanResult = rospy.Subscriber(SUBSCRIBE_TO_THREAD,LaserScan,callBack)
-
+rospy.init_node(NODE_NAME)
 rospy.spin()
