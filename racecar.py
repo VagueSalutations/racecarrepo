@@ -58,7 +58,7 @@ class racecar:
 
     def bbWallFollow(self, ranges, d_desired, speed):
 
-        distance = min(ranges)          # Finds the minimum range
+        distance = min(ranges[:360])          # Finds the minimum range
 	error = d_desired - distance    # Calculates error
         steering_angle = 0              # Initializes steering_angle
 
@@ -68,10 +68,10 @@ class racecar:
 	    steering_angle = 0          #       Kill steering
 
         elif error > 0:                 # If too far to the right:
-            steering_angle = 0.5        #       Turn left
+            steering_angle = 1        #       Turn left
 
 	elif error < 0:                 # If too far to the left:
-	    steering_angle = -0.5       #       Turn right
+	    steering_angle = -1       #       Turn right
 
 	self.drive(speed, steering_angle)    # Execute drive function
 

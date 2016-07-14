@@ -25,7 +25,7 @@ from ackermann_msgs.msg import AckermannDriveStamped
 SUBSCRIBE_TO_THREAD = "/scan"
 NODE_NAME = 'bbWallFollow'
 
-D_DESIRED = 0.5
+D_DESIRED = 0.2
 SPEED = 1.0
 
 kevin = racecar()
