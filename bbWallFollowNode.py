@@ -22,7 +22,6 @@ from ackermann_msgs.msg import AckermannDriveStamped
 
 
 # VARIABLES
-
 SUBSCRIBE_TO_THREAD = "/scan"
 NODE_NAME = 'bbWallFollow'
 
@@ -33,8 +32,6 @@ kevin = racecar()
 
 
 # CALLBACK
-
-
 def callBack(msg):
 
     kevin.bbWallFollow(msg.ranges, D_DESIRED, SPEED)
