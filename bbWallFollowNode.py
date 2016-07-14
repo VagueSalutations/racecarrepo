@@ -13,7 +13,6 @@ wall follow) method defined in the racecar.py class.
 
 
 # IMPORTS
-#–––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 import rospy
 import math
@@ -24,7 +23,6 @@ from ackermann_msgs.msg import AckermannDriveStamped
 
 
 # VARIABLES
-#–––––––––––––––––––––––––––––––––––––––––––––––––––––––
 SUBSCRIBE_TO_THREAD = "racecar/laser/scan"
 NODE_NAME = 'bbWallFollow'
 
@@ -35,7 +33,6 @@ racecar = racecar()
 
 
 # CALLBACK
-#–––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 def callBack(msg):
 
@@ -44,7 +41,6 @@ def callBack(msg):
 
 
 # MAIN()      
-#–––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 scanResult = rospy.Subscriber(SUBSCRIBE_TO_THREAD,LaserScan,callBack)
 rospy.init_node(NODE_NAME)
