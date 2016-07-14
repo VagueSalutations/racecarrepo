@@ -28,8 +28,8 @@ class racecar:
 
     def __init__(self):
         
-        self.DrivePub = rospy.Publisher('/navigation', AckermannDriveStamped,queue_size=10)
-        self.SafetyPub = rospy.Publisher('/safety', AckermannDriveStamped,queue_size=10)        
+        self.DrivePub = rospy.Publisher('/vesc/ackermann_cmd_mux/input/navigation', AckermannDriveStamped,queue_size=10)
+        self.SafetyPub = rospy.Publisher('vesc/ackermann_cmd_mux/input/safety', AckermannDriveStamped,queue_size=10)        
 
         # Add any other topic variables here
 
