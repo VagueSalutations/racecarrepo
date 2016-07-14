@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-racecar.py
+racecar(GIT).py
 
 MIT RACECAR 2016
 
@@ -10,9 +10,7 @@ activates the node.
 
 """
 
-
 # IMPORTS
-
 
 import rospy
 import math
@@ -26,7 +24,6 @@ from ackermann_msgs.msg import AckermannDriveStamped
 class racecar:
 
     def __init__(self):
-        rospy.init_node('lol')
         self.DrivePub = rospy.Publisher('/vesc/ackermann_cmd_mux/input/navigation', AckermannDriveStamped,queue_size=10)
         self.SafetyPub = rospy.Publisher('vesc/ackermann_cmd_mux/input/safety', AckermannDriveStamped,queue_size=10)        
 
@@ -59,7 +56,7 @@ class racecar:
 
     def bbWallFollow(self, ranges, d_desired, speed):
 
-        distance = min(ranges)          # Finds the minimum range
+        distance = min(ranges[:360])          # Finds the minimum range
 	error = d_desired - distance    # Calculates error
         steering_angle = 0              # Initializes steering_angle
 
@@ -69,10 +66,10 @@ class racecar:
 	    steering_angle = 0          #       Kill steering
 
         elif error > 0:                 # If too far to the right:
-            steering_angle = 0.5        #       Turn left
+            steering_angle = 1        #       Turn left
 
 	elif error < 0:                 # If too far to the left:
-	    steering_angle = -0.5       #       Turn right
+	    steering_angle = -1       #       Turn right
 
 	self.drive(speed, steering_angle)    # Execute drive function
 

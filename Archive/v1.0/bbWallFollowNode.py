@@ -2,7 +2,7 @@
 
 
 """
-bbWallFollowNode.py
+bbWallFollowNode(GIT).py
 
 MIT RACECAR 2016
 
@@ -22,26 +22,17 @@ from ackermann_msgs.msg import AckermannDriveStamped
 
 
 # VARIABLES
-<<<<<<< HEAD
 
 SUBSCRIBE_TO_THREAD = "/scan"
-=======
-SUBSCRIBE_TO_THREAD = "racecar/laser/scan"
->>>>>>> c43c8aa814b56fafa58bf06d00e597dd72f43281
 NODE_NAME = 'bbWallFollow'
 
-D_DESIRED = 0.5
+D_DESIRED = 0.2
 SPEED = 1.0
 
 kevin = racecar()
 
 
 # CALLBACK
-<<<<<<< HEAD
-
-=======
->>>>>>> c43c8aa814b56fafa58bf06d00e597dd72f43281
-
 def callBack(msg):
 
     kevin.bbWallFollow(msg.ranges, D_DESIRED, SPEED)
