@@ -27,7 +27,7 @@ DATA_THREAD = "/scan"
 # CONTROLLER_THREAD = " "
 NODE_NAME = 'PWallFollow'
 
-D_DESIRED = 0.2
+D_DESIRED = 0.8
 SPEED = 1.0
 
 side = "L"
