@@ -26,7 +26,7 @@ from ackermann_msgs.msg import AckermannDriveStamped
 DATA_THREAD = "/scan"
 NODE_NAME = 'bbWallFollow'
 
-D_DESIRED = 0.2
+D_DESIRED = 0.8
 SPEED = 1.0
 
 side = "L"
