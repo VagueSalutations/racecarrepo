@@ -41,7 +41,7 @@ def callBack(msg):
     # <implement here>
     
     # Query for safety
-    # <implement here>
+    kevin.safety(msg.ranges)
 
     # Query for Bang Bang
     kevin.bbWallFollow(msg.ranges, D_DESIRED, SPEED, side)
