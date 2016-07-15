@@ -28,6 +28,8 @@ class racecar:
         self.DrivePub = rospy.Publisher('/vesc/ackermann_cmd_mux/input/navigation', AckermannDriveStamped,queue_size=10)
         self.SafetyPub = rospy.Publisher('vesc/ackermann_cmd_mux/input/safety', AckermannDriveStamped,queue_size=10)        
 
+        self.errorDif = 0
+        
         # Add any other topic variables here
     
 
@@ -56,19 +58,50 @@ class racecar:
     # a target 
 
     def calcDistance(self, ranges, side):
-
-        total = 0
         
-        if side == "L":                 # Wall on left side
-            for count in range(890, 910):
+        lengthx = 0
+        lengthy = 0
+        total = 0
+
+        if side == "F":
+            total = 0
+            for count in range(530, 550):
                 total += ranges[count]
+            return total/20
+        
+        elif side == "L":                 # Wall on left side
+            lengthx = 780
+            lengthy = 900
 
         else:                           # Wall on right side
-            for count in range(170, 190):
-                total += ranges[count]
+            lengthx = 300
+            lengthy = 180
 
-        return total/20
+        zSquare = lengthx * lengthx + lengthy * lengthy - 2 * lengthx * lengthy * math.sqrt(3)/2
+	lengthz = math.sqrt(zSquare)
+	
+	return ((lengthx * lengthy * 0.5) / lengthz)
 
+
+    # Function: safety
+    # Parameters: ranges (list)
+    #
+    # This function checks the area in front of
+    # it and publishes a stop command if it's
+    # about to hit something.
+
+    def safety(self, ranges):
+
+        distance = self.calcDistance(ranges, "F")  # Scans forward
+
+        if distance < 0.6:      # If object < 0.6m ahead
+            msg = AckermannDriveStamped()           # Initializes msg variable
+            msg.drive.speed = 0                     # Sets msg speed to entered speed
+            msg.drive.acceleration = 0              # Sets msg acceleration to 0
+            msg.drive.jerk = 1                      # Sets msg jerk to 1
+            msg.drive.steering_angle = 0            # Sets msg steering angle to entered angle
+            msg.drive.steering_angle_velocity = 1   # Sets msg angle velocity to 1
+            self.SafetyPub.publish(msg)
 
 
     # Function: bbWallFollow
@@ -123,10 +156,34 @@ class racecar:
 
         steering_angle = 0              # Initializes steering_angle
 
-        THRESHOLD = 0.05                # Sets threshold to 0.1m
+        THRESHOLD = 0.05                # Sets threshold to 5cm
         Kp = 0.1
 
         steering_angle = Kp * error
+
+        self.drive(speed, steering_angle)    # Execute drive function
+
+
+    # Function: PDWallFollow
+    # Parameters: ranges (list), d_desired (float), speed (float),
+    #             side (string, L or R)
+    #
+    # This function uses a proportional control system
+    # to let the car follow a line
+
+    def PDWallFollow(self, ranges, d_desired, speed, side):
+
+        distance = self.calcDistance(ranges, side)  # Finds the minimum range
+        error = d_desired - distance    # Calculates error
+
+        steering_angle = 0              # Initializes steering_angle
+
+        THRESHOLD = 0.05                # Sets threshold to 5cm
+        Kp = 0.1
+        Kd = 0.2
+
+        steering_angle = (Kp * error) - (Kd * self.errorDif)
+        self.errorDif = error - self.errorDif
 
         self.drive(speed, steering_angle)    # Execute drive function
 
