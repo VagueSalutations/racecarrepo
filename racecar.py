@@ -55,7 +55,7 @@ class racecar:
     # This function will estimate a distance from
     # a target 
 
-    def calcDistance(ranges, side):
+    def calcDistance(self, ranges, side):
 
         total = 0
         
@@ -79,7 +79,7 @@ class racecar:
 
     def bbWallFollow(self, ranges, d_desired, speed, side):
 
-        distance = calcDistance(ranges, side)   # Queries for distance estimate
+        distance = self.calcDistance(ranges, side)   # Queries for distance estimate
         error = d_desired - distance    # Calculates error
         steering_angle = 0              # Initializes steering_angle
 
@@ -107,7 +107,7 @@ class racecar:
 
     def PWallFollow(self, ranges, d_desired, speed, side):
 
-        distance = min(ranges)          # Finds the minimum range
+        distance = self.calcDistance(ranges, side)  # Finds the minimum range
         error = d_desired - distance    # Calculates error
 
         steering_angle = 0              # Initializes steering_angle
