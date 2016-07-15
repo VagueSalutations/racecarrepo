@@ -159,7 +159,11 @@ class racecar:
         THRESHOLD = 0.05                # Sets threshold to 5cm
         Kp = 0.1
 
-        steering_angle = -Kp * error
+        if side == "L":
+            steering_angle = -Kp * error
+
+        else:
+            steering_angle = Kp * error
 
         self.drive(speed, steering_angle)    # Execute drive function
 
