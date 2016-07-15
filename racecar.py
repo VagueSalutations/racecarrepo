@@ -84,16 +84,27 @@ class racecar:
         steering_angle = 0              # Initializes steering_angle
 
         THRESHOLD = 0.05                # Sets threshold to 5cm
+
+        if side == "R":
+            if abs(error) < THRESHOLD:      # If error within threshold:
+                steering_angle = 0          #       Kill steering
+
+            elif error > 0:                 # If too far to the right:
+                steering_angle = 1          #       Turn left
+
+            elif error < 0:                 # If too far to the left:
+                steering_angle = -1         #       Turn right
+
+        else:
+            if abs(error) < THRESHOLD:      # If error within threshold:
+                steering_angle = 0          #       Kill steering
+
+            elif error > 0:                 # If too far to the right:
+                steering_angle = -1          #       Turn left
+
+            elif error < 0:                 # If too far to the left:
+                steering_angle = 1         #       Turn right
         
-        if abs(error) < THRESHOLD:      # If error within threshold:
-            steering_angle = 0          #       Kill steering
-
-        elif error > 0:                 # If too far to the right:
-            steering_angle = 1          #       Turn left
-
-        elif error < 0:                 # If too far to the left:
-            steering_angle = -1         #       Turn right
-
         self.drive(speed, steering_angle)    # Execute drive function
 
 
@@ -116,15 +127,6 @@ class racecar:
         Kp = 0.1
 
         steering_angle = Kp * error
-        
-        if abs(error) < THRESHOLD:      # If error within threshold:
-            steering_angle = 0          #       Kill steering
-
-        elif error > 0:                 # If too far to the right:
-            steering_angle = 0.5        #       Turn left
-
-        elif error < 0:                 # If too far to the left:
-            steering_angle = -0.5       #       Turn right
 
         self.drive(speed, steering_angle)    # Execute drive function
 
