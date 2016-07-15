@@ -23,7 +23,7 @@ from ackermann_msgs.msg import AckermannDriveStamped
 
 # VARIABLES
 
-SUBSCRIBE_TO_THREAD = "/scan"
+DATA_THREAD = "/scan"
 NODE_NAME = 'bbWallFollow'
 
 D_DESIRED = 0.2
@@ -51,6 +51,8 @@ def callBack(msg):
 # MAIN()      
 
 rospy.init_node(NODE_NAME)
-scanResult = rospy.Subscriber(SUBSCRIBE_TO_THREAD,LaserScan,callBack)
+scanResult = rospy.Subscriber(DATA_THREAD,LaserScan,callBack)
+
+#sideEntry = rospy.Subscriber("", ,)
 
 rospy.spin()

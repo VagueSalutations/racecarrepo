@@ -60,11 +60,11 @@ class racecar:
         total = 0
         
         if side == "L":                 # Wall on left side
-            for count in range (170, 190):
+            for count in range(890, 910):
                 total += ranges[count]
 
         else:                           # Wall on right side
-            for count in range(890, 910):
+            for count in range(170, 190):
                 total += ranges[count]
 
         return total/20
@@ -90,20 +90,20 @@ class racecar:
                 steering_angle = 0          #       Kill steering
 
             elif error > 0:                 # If too far to the right:
-                steering_angle = 1          #       Turn left
+                steering_angle = 0.5          #       Turn left
 
             elif error < 0:                 # If too far to the left:
-                steering_angle = -1         #       Turn right
+                steering_angle = -0.5         #       Turn right
 
         else:
             if abs(error) < THRESHOLD:      # If error within threshold:
                 steering_angle = 0          #       Kill steering
 
             elif error > 0:                 # If too far to the right:
-                steering_angle = -1          #       Turn left
+                steering_angle = -0.5          #       Turn left
 
             elif error < 0:                 # If too far to the left:
-                steering_angle = 1         #       Turn right
+                steering_angle = 0.5         #       Turn right
         
         self.drive(speed, steering_angle)    # Execute drive function
 
